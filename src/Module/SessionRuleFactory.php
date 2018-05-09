@@ -102,7 +102,7 @@ class SessionRuleFactory implements FactoryInterface
         $repeatUntilDate   = $this->_containerGet($config, 'repeat_until_date');
         // Calculate the end of repetition
         $repeatEnd = ($repeatUntil === 'period')
-            ? Carbon::createFromTimestampUTC($start)->modify($repeatUntilPeriod)
+            ? Carbon::createFromTimestampUTC($start)->modify($repeatUntilPeriod)->getTimestamp()
             : $repeatUntilDate;
 
         switch ($repeatUnit) {
