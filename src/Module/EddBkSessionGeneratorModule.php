@@ -119,6 +119,6 @@ class EddBkSessionGeneratorModule extends AbstractBaseModule
      */
     public function run(ContainerInterface $c = null)
     {
-        $this->_attach('eddbk_generate_sessions', [$c->get('eddbk_generate_sessions_handler')]);
+        $this->_attach('eddbk_generate_sessions', $c->get('eddbk_generate_sessions_handler'));
     }
 }
