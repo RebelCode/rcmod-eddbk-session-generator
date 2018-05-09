@@ -185,12 +185,6 @@ class GenerateSessionsHandler implements InvocableInterface
             $sessionLengths[] = $this->_containerGet($sessionLengths, 'sessionLength');
         }
 
-        // Initialize a generator with the lengths
-        $generator = $this->generatorFactory->make([
-            'session_factory' => $this->_getSessionFactory($postId, $postId),
-            'session_lengths' => $sessionLengths
-        ]);
-
         $b = $this->exprBuilder;
         // Get the session generator rules for the service
         $rules = $this->rulesSelectRm->select(
@@ -208,6 +202,12 @@ class GenerateSessionsHandler implements InvocableInterface
                 $b->var('rule_id'),
                 $b->lit($_ruleId)
             ));
+
+            // Initialize a generator with the lengths
+            $generator = $this->generatorFactory->make([
+                'session_factory' => $this->_getSessionFactory($postId, $postId, $_ruleId),
+                'session_lengths' => $sessionLengths,
+            ]);
 
             $this->_generateForRule($_rule, $generator);
         }
@@ -235,24 +235,30 @@ class GenerateSessionsHandler implements InvocableInterface
     }
 
     /**
-     * Retrieves the session factory to use when generating sessions for a given service and resource.
+     * Retrieves the session factory to use when generating sessions for a given service, resource and rule.
      *
      * @since [*next-version*]
      *
-     * @param int|float|string|Stringable $serviceId  The service ID.
-     * @param int|float|string|Stringable $resourceId The resource ID.
+     * @param int|string|Stringable $serviceId  The service ID.
+     * @param int|string|Stringable $resourceId The resource ID.
+     * @param int|string|Stringable $ruleId     The session rule ID.
      *
      * @return callable The session factory, as a callable that receives the session start and end timestamps as
      *                  arguments and returns a session.
      */
-    protected function _getSessionFactory($serviceId, $resourceId)
+    protected function _getSessionFactory($serviceId, $resourceId, $ruleId)
     {
-        return function ($start, $end) use ($serviceId, $resourceId) {
+        $serviceId  = $this->_normalizeInt($serviceId);
+        $resourceId = $this->_normalizeInt($resourceId);
+        $ruleId     = $this->_normalizeInt($ruleId);
+
+        return function ($start, $end) use ($serviceId, $resourceId, $ruleId) {
             return [
                 'start'       => $start,
                 'end'         => $end,
-                'service_id'  => $this->_normalizeInt($serviceId),
-                'resource_id' => $this->_normalizeInt($resourceId),
+                'service_id'  => $serviceId,
+                'resource_id' => $resourceId,
+                'rule_id'     => $ruleId,
             ];
         };
     }
