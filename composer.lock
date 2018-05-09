@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "24fdc752c6231587dabcaf094a4327df",
+    "content-hash": "07fd018668493459adcdb52388a1f198",
     "packages": [
         {
             "name": "dhii/args-list-validation",
@@ -1346,26 +1346,26 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/module-interface.git",
-                "reference": "8aa782dc55d763109c0db54762ab997602730984"
+                "reference": "2f92a4bf08362c75f658d640fbc161390d62ab15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/module-interface/zipball/8aa782dc55d763109c0db54762ab997602730984",
-                "reference": "8aa782dc55d763109c0db54762ab997602730984",
+                "url": "https://api.github.com/repos/Dhii/module-interface/zipball/2f92a4bf08362c75f658d640fbc161390d62ab15",
+                "reference": "2f92a4bf08362c75f658d640fbc161390d62ab15",
                 "shasum": ""
             },
             "require": {
                 "dhii/data-key-value-aware-interface": "^0.1",
                 "dhii/exception-interface": "^0.1 | ^0.2",
                 "dhii/factory-interface": "^0.1-alpha1",
-                "php": "^5.3 | ^7.0",
-                "psr/container": "^1.0"
+                "php": "^5.3 | ^7.0"
             },
             "require-dev": {
                 "codeclimate/php-test-reporter": "<=0.3.2",
                 "dhii/php-cs-fixer-config": "dev-php-5.3",
                 "dhii/stringable-interface": "^0.1",
                 "phpunit/phpunit": "^4.8",
+                "psr/container": "^1.0",
                 "ptrofimov/xpmock": "^1.1"
             },
             "type": "library",
@@ -1390,7 +1390,7 @@
                 }
             ],
             "description": "Interfaces for modules",
-            "time": "2018-04-16T12:08:26+00:00"
+            "time": "2018-05-06T22:08:41+00:00"
         },
         {
             "name": "dhii/normalization-helper-base",
@@ -1873,12 +1873,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/modular.git",
-                "reference": "47f2b1426ae2068dd13f669cabf1e672298e79d2"
+                "reference": "1c0c74e014c4db7d48b9350cb25610954d38b35b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/modular/zipball/47f2b1426ae2068dd13f669cabf1e672298e79d2",
-                "reference": "47f2b1426ae2068dd13f669cabf1e672298e79d2",
+                "url": "https://api.github.com/repos/RebelCode/modular/zipball/1c0c74e014c4db7d48b9350cb25610954d38b35b",
+                "reference": "1c0c74e014c4db7d48b9350cb25610954d38b35b",
                 "shasum": ""
             },
             "require": {
@@ -1926,7 +1926,7 @@
                 }
             ],
             "description": "A module system.",
-            "time": "2018-05-02T10:39:18+00:00"
+            "time": "2018-05-03T15:14:45+00:00"
         },
         {
             "name": "rebelcode/module-iterator-abstract",
@@ -2069,16 +2069,16 @@
         },
         {
             "name": "rebelcode/time-abstract",
-            "version": "dev-develop",
+            "version": "dev-task/normalize-time-instances",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/time-abstract.git",
-                "reference": "4061c994f223b84c2703f352c51b7c9a1c477bc1"
+                "reference": "45a11407e4aef18bb96033b153580d5184c885c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/time-abstract/zipball/4061c994f223b84c2703f352c51b7c9a1c477bc1",
-                "reference": "4061c994f223b84c2703f352c51b7c9a1c477bc1",
+                "url": "https://api.github.com/repos/RebelCode/time-abstract/zipball/45a11407e4aef18bb96033b153580d5184c885c3",
+                "reference": "45a11407e4aef18bb96033b153580d5184c885c3",
                 "shasum": ""
             },
             "require": {
@@ -2115,7 +2115,7 @@
                 }
             ],
             "description": "Abstract functionality for dealing with time.",
-            "time": "2018-03-13T14:04:24+00:00"
+            "time": "2018-05-09T14:42:40+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2299,6 +2299,61 @@
                 "coverage"
             ],
             "time": "2016-04-19T16:54:33+00:00"
+        },
+        {
+            "name": "dhii/cqrs-resource-model-interface",
+            "version": "v0.1-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/cqrs-resource-model-interface.git",
+                "reference": "38273c0314b80b9ab575ac8129071ee6fc0d5bdf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/cqrs-resource-model-interface/zipball/38273c0314b80b9ab575ac8129071ee6fc0d5bdf",
+                "reference": "38273c0314b80b9ab575ac8129071ee6fc0d5bdf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/expression-interface": "^0.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "dhii/sql-interface": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "psr/container": "^1.0",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "suggest": {
+                "dhii/expression-interface": "To create query conditions and value expressions.",
+                "dhii/stringable-interface": "To pass stringable objects in place of strings."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Storage\\Resource\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces for a CQRS approach to resource models.",
+            "time": "2018-03-08T10:51:04+00:00"
         },
         {
             "name": "dhii/php-cs-fixer-config",
