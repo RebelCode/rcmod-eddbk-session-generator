@@ -182,7 +182,7 @@ class GenerateSessionsHandler implements InvocableInterface
         $sessionLengthsObjs = $this->_getPostMeta($postId, 'eddbk_session_lengths', []);
         $sessionLengths     = [];
         foreach ($sessionLengthsObjs as $_sessionLengthObj) {
-            $sessionLengths[] = $this->_containerGet($sessionLengths, 'sessionLength');
+            $sessionLengths[] = $this->_containerGet($_sessionLengthObj, 'sessionLength');
         }
 
         $b = $this->exprBuilder;
