@@ -194,14 +194,14 @@ class GenerateSessionsHandler implements InvocableInterface
             )
         );
 
+        $this->sessionsDeleteRm->delete($b->eq(
+            $b->var('service_id'),
+            $b->lit($serviceId)
+        ));
+
         foreach ($rules as $_ruleCfg) {
             $_rule   = $this->ruleFactory->make($_ruleCfg);
             $_ruleId = $this->_containerGet($_ruleCfg, 'id');
-
-            $this->sessionsDeleteRm->delete($b->eq(
-                $b->var('rule_id'),
-                $b->lit($_ruleId)
-            ));
 
             // Initialize a generator with the lengths
             $generator = $this->generatorFactory->make([
