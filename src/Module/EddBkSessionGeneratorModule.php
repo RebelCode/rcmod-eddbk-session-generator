@@ -15,6 +15,7 @@ use Psr\Container\ContainerInterface;
 use Psr\EventManager\EventManagerInterface;
 use RebelCode\EddBookings\Sessions\Generator\DailyRepeatingRule;
 use RebelCode\EddBookings\Sessions\Generator\YearlyRepeatingRule;
+use RebelCode\EddBookings\Sessions\Time\PeriodFactory;
 use RebelCode\Modular\Module\AbstractBaseModule;
 
 class EddBkSessionGeneratorModule extends AbstractBaseModule
@@ -67,46 +68,10 @@ class EddBkSessionGeneratorModule extends AbstractBaseModule
                     );
                 },
                 'eddbk_session_rule_factory'      => function (ContainerInterface $c) {
-                    return new GenericCallbackFactory(function ($config) use ($c) {
-                        $start             = (int) $this->_containerGet($config, 'start');
-                        $end               = (int) $this->_containerGet($config, 'end');
-                        $repeat            = (bool) $this->_containerGet($config, 'repeat');
-                        $repeatUnit        = $this->_containerGet($config, 'repeat_unit');
-                        $repeatUnit        = strtolower($repeatUnit);
-                        $repeatPeriod      = (int) $this->_containerGet($config, 'repeat_period');
-                        $repeatUntil       = $this->_containerGet($config, 'repeat_until');
-                        $repeatUntilPeriod = $this->_containerGet($config, 'repeat_until_period');
-                        $repeatUntilPeriod = sprintf('+%1$d %2$s', $repeatUntilPeriod, $repeatUnit);
-                        $repeatUntilDate   = $this->_containerGet($config, 'repeat_until_date');
-                        $excludeDates      = $this->_containerGet($config, 'exclude_dates');
-
-                        $repeatEnd = ($repeatUntil === 'period')
-                            ? Carbon::createFromTimestampUTC($start)->modify($repeatUntilPeriod)
-                            : $repeatUntilDate;
-
-                        if (!$repeat) {
-                            return new DailyRepeatingRule(
-                                $c->get('eddbk_period_factory'),
-                                $start,
-                                $end,
-                                1,
-                                $end,
-                                $excludeDates
-                            );
-                        }
-
-                        switch ($repeatUnit) {
-                            case 'years':
-                                return new YearlyRepeatingRule(
-                                    $c->get('eddbk_period_factory'),
-                                    $start,
-                                    $end,
-                                    $repeatPeriod,
-                                    $repeatEnd,
-                                    $excludeDates
-                                );
-                        }
-                    });
+                    return new SessionRuleFactory($c->get('eddbk_period_factory'));
+                },
+                'eddbk_period_factory'            => function (ContainerInterface $c) {
+                    return new PeriodFactory();
                 },
             ]
         );
