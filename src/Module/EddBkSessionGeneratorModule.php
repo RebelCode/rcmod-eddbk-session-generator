@@ -62,8 +62,8 @@ class EddBkSessionGeneratorModule extends AbstractBaseModule
                         $c->get('session_rules_select_rm'),
                         $c->get('sessions_insert_rm'),
                         $c->get('sessions_delete_rm'),
-                        $c->get('eddbk_session_rule_factory'),
-                        $c->get('sql_expression_builder')
+                        $c->get('sql_expression_builder'),
+                        $c->get('eddbk_session_rule_factory')
                     );
                 },
                 'eddbk_session_rule_factory'      => function (ContainerInterface $c) {
