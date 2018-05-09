@@ -107,23 +107,35 @@ class GenerateSessionsHandler implements InvocableInterface
     protected $ruleFactory;
 
     /**
+     * The session generator factory.
+     *
+     * @since [*next-version*]
+     *
+     * @var FactoryInterface
+     */
+    protected $generatorFactory;
+
+    /**
      * Constructor.
      *
      * @since [*next-version*]
      *
+     * @param FactoryInterface       $generatorFactory The session generator factory.
+     * @param FactoryInterface       $ruleFactory      The session generator rule factory.
      * @param SelectCapableInterface $rulesSelectRm    The SELECT RM for session generator rules.
      * @param InsertCapableInterface $sessionsInsertRm The INSERT RM for sessions.
      * @param DeleteCapableInterface $sessionsDeleteRm The DELETE RM for sessions.
      * @param object                 $exprBuilder      The expression builder.
-     * @param FactoryInterface       $ruleFactory      The session generator rule factory.
      */
     public function __construct(
+        $generatorFactory,
+        $ruleFactory,
         $rulesSelectRm,
         $sessionsInsertRm,
         $sessionsDeleteRm,
-        $exprBuilder,
-        $ruleFactory
+        $exprBuilder
     ) {
+        $this->generatorFactory = $generatorFactory;
         $this->rulesSelectRm    = $rulesSelectRm;
         $this->sessionsInsertRm = $sessionsInsertRm;
         $this->sessionsDeleteRm = $sessionsDeleteRm;
@@ -168,13 +180,16 @@ class GenerateSessionsHandler implements InvocableInterface
 
         // Get the session lengths for the service
         $sessionLengthsObjs = $this->_getPostMeta($postId, 'eddbk_session_lengths', []);
-        $sessionLengths = [];
+        $sessionLengths     = [];
         foreach ($sessionLengthsObjs as $_sessionLengthObj) {
             $sessionLengths[] = $this->_containerGet($sessionLengths, 'sessionLength');
         }
 
         // Initialize a generator with the lengths
-        $generator = new SessionGenerator($this->_getSessionFactory($postId, $postId), $sessionLengths);
+        $generator = $this->generatorFactory->make([
+            'session_factory' => $this->_getSessionFactory($postId, $postId),
+            'session_lengths' => $sessionLengths
+        ]);
 
         $b = $this->exprBuilder;
         // Get the session generator rules for the service
