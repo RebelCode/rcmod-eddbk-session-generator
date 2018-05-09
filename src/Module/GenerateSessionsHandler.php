@@ -167,7 +167,12 @@ class GenerateSessionsHandler implements InvocableInterface
         $postId = func_get_arg(0);
 
         // Get the session lengths for the service
-        $sessionLengths = $this->_getPostMeta($postId, 'eddbk_session_lengths', true);
+        $sessionLengthsObjs = $this->_getPostMeta($postId, 'eddbk_session_lengths', []);
+        $sessionLengths = [];
+        foreach ($sessionLengthsObjs as $_sessionLengthObj) {
+            $sessionLengths[] = $this->_containerGet($sessionLengths, 'sessionLength');
+        }
+
         // Initialize a generator with the lengths
         $generator = new SessionGenerator($this->_getSessionFactory($postId, $postId), $sessionLengths);
 
