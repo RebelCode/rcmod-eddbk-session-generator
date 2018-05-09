@@ -1,6 +1,6 @@
 <?php
 
-namespace RebelCode\EddBookings\Sessions\Generator;
+namespace RebelCode\EddBookings\Sessions\Module;
 
 use Carbon\Carbon;
 use Dhii\Data\Container\ContainerGetCapableTrait;
@@ -13,6 +13,10 @@ use Dhii\Factory\Exception\CreateCouldNotMakeExceptionCapableTrait;
 use Dhii\Factory\FactoryInterface;
 use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
+use RebelCode\EddBookings\Sessions\Generator\DailyRepeatingRule;
+use RebelCode\EddBookings\Sessions\Generator\MonthlyRepeatingRule;
+use RebelCode\EddBookings\Sessions\Generator\WeeklyRepeatingRule;
+use RebelCode\EddBookings\Sessions\Generator\YearlyRepeatingRule;
 use RebelCode\EddBookings\Sessions\Time\PeriodFactoryAwareTrait;
 use RebelCode\EddBookings\Sessions\Time\PeriodFactoryInterface;
 
