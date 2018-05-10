@@ -4,6 +4,7 @@ use Psr\Container\ContainerInterface;
 use RebelCode\EddBookings\Sessions\Module\EddBkSessionGeneratorModule;
 
 define('RCMOD_EDDBK_SESSION_GENERATOR_DIR', __DIR__);
+define('RCMOD_EDDBK_SESSION_GENERATOR_SERVICES_FILE', RCMOD_EDDBK_SESSION_GENERATOR_DIR . '/services.php');
 define('RCMOD_EDDBK_SESSION_GENERATOR_CONFIG_DIR', RCMOD_EDDBK_SESSION_GENERATOR_DIR);
 define('RCMOD_EDDBK_SESSION_GENERATOR_CONFIG_FILE', RCMOD_EDDBK_SESSION_GENERATOR_CONFIG_DIR . '/config.php');
 define('RCMOD_EDDBK_SESSION_GENERATOR_KEY', 'eddbk_session_generator');
