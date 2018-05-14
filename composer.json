@@ -16,7 +16,7 @@
         "rebelcode/modular": "^0.1-alpha1",
         "rebelcode/time-abstract": "dev-task/normalize-time-instances",
         "rebelcode/session-generator": "dev-task/initial-classes",
-        "dhii/time-interface": "dev-develop",
+        "dhii/time-interface": "^0.1-alpha1",
         "dhii/iterator-base": "^0.1-alpha3",
         "dhii/container-helper-base": "^0.1-alpha5",
         "nesbot/carbon": "^1.26.0"
