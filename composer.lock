@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "258233a5c2eb4dc829f5cabbcbbccd73",
+    "content-hash": "aca3bbd8a1bba2beaffc32cd197bd467",
     "packages": [
         {
             "name": "dhii/args-list-validation",
@@ -1936,25 +1936,29 @@
         },
         {
             "name": "rebelcode/session-generator",
-            "version": "dev-task/initial-classes",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/session-generator.git",
-                "reference": "fbda06d0e6ddd616a5db80bd1c3a897b43506f25"
+                "reference": "65328cb70e62d4b3659d60a4f7149255fe04be6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/session-generator/zipball/fbda06d0e6ddd616a5db80bd1c3a897b43506f25",
-                "reference": "fbda06d0e6ddd616a5db80bd1c3a897b43506f25",
+                "url": "https://api.github.com/repos/RebelCode/session-generator/zipball/65328cb70e62d4b3659d60a4f7149255fe04be6d",
+                "reference": "65328cb70e62d4b3659d60a4f7149255fe04be6d",
                 "shasum": ""
             },
             "require": {
+                "dhii/args-list-validation": "^0.1-alpha1",
+                "dhii/callback-abstract": "^0.1-alpha5",
                 "dhii/exception": "^0.1-alpha4",
                 "dhii/factory-base": "^0.1-alpha1",
                 "dhii/i18n-helper-base": "^0.1-alpha1",
+                "dhii/iterator-helper-base": "^0.1-alpha2",
+                "dhii/validation-base": "^0.2-alpha1",
                 "dhii/validation-interface": "^0.1 | ^0.2-alpha1",
                 "php": "^5.4 | ^7.0",
-                "rebelcode/session-generator-interface": "dev-develop"
+                "rebelcode/session-generator-interface": "^0.1-alpha1"
             },
             "require-dev": {
                 "codeclimate/php-test-reporter": "<=0.3.2",
@@ -1964,6 +1968,11 @@
                 "ptrofimov/xpmock": "^1.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "RebelCode\\Sessions\\": "src"
@@ -1980,20 +1989,20 @@
                 }
             ],
             "description": "A session generator implementation.",
-            "time": "2018-04-18T15:35:24+00:00"
+            "time": "2018-05-15T15:49:20+00:00"
         },
         {
             "name": "rebelcode/session-generator-interface",
-            "version": "dev-develop",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/session-generator-interface.git",
-                "reference": "ea22a525db67bf5bcb1e0ae75b1786d39361717e"
+                "reference": "8a7adc1930594d39554d9cc06869f54ac3c4ca14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/session-generator-interface/zipball/ea22a525db67bf5bcb1e0ae75b1786d39361717e",
-                "reference": "ea22a525db67bf5bcb1e0ae75b1786d39361717e",
+                "url": "https://api.github.com/repos/RebelCode/session-generator-interface/zipball/8a7adc1930594d39554d9cc06869f54ac3c4ca14",
+                "reference": "8a7adc1930594d39554d9cc06869f54ac3c4ca14",
                 "shasum": ""
             },
             "require": {
@@ -2007,6 +2016,11 @@
                 "ptrofimov/xpmock": "^1.1"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "RebelCode\\Sessions\\": "src"
@@ -2023,7 +2037,7 @@
                 }
             ],
             "description": "Interfaces for objects that are capable of generating sessions.",
-            "time": "2018-03-28T11:50:02+00:00"
+            "time": "2018-05-15T13:50:02+00:00"
         },
         {
             "name": "rebelcode/time-abstract",
@@ -4046,8 +4060,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "rebelcode/time-abstract": 20,
-        "rebelcode/session-generator": 20
+        "rebelcode/time-abstract": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
