@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aca3bbd8a1bba2beaffc32cd197bd467",
+    "content-hash": "d3c7376b2669705e4453761c08e0ab98",
     "packages": [
         {
             "name": "dhii/args-list-validation",
@@ -2041,16 +2041,16 @@
         },
         {
             "name": "rebelcode/time-abstract",
-            "version": "dev-task/normalize-time-instances",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/time-abstract.git",
-                "reference": "45a11407e4aef18bb96033b153580d5184c885c3"
+                "reference": "6e3283b6abf2c79a70fc4e21854c2150d5d0d095"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/time-abstract/zipball/45a11407e4aef18bb96033b153580d5184c885c3",
-                "reference": "45a11407e4aef18bb96033b153580d5184c885c3",
+                "url": "https://api.github.com/repos/RebelCode/time-abstract/zipball/6e3283b6abf2c79a70fc4e21854c2150d5d0d095",
+                "reference": "6e3283b6abf2c79a70fc4e21854c2150d5d0d095",
                 "shasum": ""
             },
             "require": {
@@ -2087,7 +2087,7 @@
                 }
             ],
             "description": "Abstract functionality for dealing with time.",
-            "time": "2018-05-09T14:42:40+00:00"
+            "time": "2018-05-16T16:10:43+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -4059,9 +4059,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "rebelcode/time-abstract": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
