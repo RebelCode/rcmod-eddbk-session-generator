@@ -295,11 +295,16 @@ abstract class AbstractIteratorRule implements PeriodInterface, IteratorInterfac
      */
     protected function _isExcluded($timestamp)
     {
-        // Get the date only
-        $startDate  = strtotime('today 00:00:00', $timestamp);
-        $isExcluded = in_array($startDate, $this->_getExcludedDates());
+        foreach ($this->_getExcludedDates() as $_excludeDate) {
+            $_excludeStart = $_excludeDate;
+            $_excludeEnd   = $_excludeStart + (24 * 60 * 60);
 
-        return $isExcluded;
+            if ($timestamp >= $_excludeStart && $timestamp < $_excludeEnd) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
