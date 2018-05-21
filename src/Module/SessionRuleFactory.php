@@ -94,7 +94,7 @@ class SessionRuleFactory implements FactoryInterface
                 $this->periodFactory,
                 $start,
                 $end,
-                1,
+                0,
                 $end,
                 $excludeDates
             );
