@@ -87,7 +87,7 @@ class SessionRuleFactory implements FactoryInterface
 
         $repeat       = (bool) $this->_containerGet($config, 'repeat');
         $excludeDates = $this->_containerGet($config, 'exclude_dates');
-        $excludeDates = explode(',', $excludeDates);
+        $excludeDates = array_filter(explode(',', $excludeDates));
 
         if (!$repeat) {
             return new DailyRepeatingRule(
@@ -125,7 +125,7 @@ class SessionRuleFactory implements FactoryInterface
 
             case 'weeks':
                 $daysOfTheWeek = $this->_containerGet($config, 'repeat_weekly_on');
-                $daysOfTheWeek = explode(',', $daysOfTheWeek);
+                $daysOfTheWeek = array_filter(explode(',', $daysOfTheWeek));
 
                 return new WeeklyRepeatingRule(
                     $this->periodFactory,
