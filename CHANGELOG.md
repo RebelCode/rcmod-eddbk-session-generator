@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
 
+## [0.1-alpha3] - 2018-06-11
+### Fixed
+- The weekly repeating rule has been re-written to repeat every day-of-the-week weekly.
+- A extra session was being generated outside of the given repetition range.
+- Session were being generated for an extra repetition period.
+
 ## [0.1-alpha2] - 2018-06-04
 ### Fixed
 - Empty rule exclude dates were generating warnings.
