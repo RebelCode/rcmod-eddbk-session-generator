@@ -262,13 +262,18 @@ abstract class AbstractIteratorRule implements PeriodInterface, IteratorInterfac
      */
     protected function _loop()
     {
-        // Check if reached end or not a repeating rule - if either, stop
-        if ($this->current >= $this->_getIterationEnd() || intval($this->_getRepeatFreq()) === 0) {
+        // Check if not a repeating rule, and if so, stop
+        if (intval($this->_getRepeatFreq()) === 0) {
             return $this->_createIteration(null, null);
         }
 
         // Retrieves the next occurrence
         $this->current = $this->_getNextOccurrence($this->current);
+
+        // Check if reached end or not
+        if ($this->current >= $this->_getIterationEnd()) {
+            return $this->_createIteration(null, null);
+        }
 
         // If the occurrence is excluded, recurse to calculate the next one
         if ($this->_isExcluded($this->current)) {

@@ -2,6 +2,7 @@
 
 namespace RebelCode\EddBookings\Sessions\Module;
 
+use AppendIterator;
 use Carbon\Carbon;
 use Dhii\Data\Container\ContainerGetCapableTrait;
 use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
@@ -100,16 +101,17 @@ class SessionRuleFactory implements FactoryInterface
             );
         }
 
-        $repeatUnit        = $this->_containerGet($config, 'repeat_unit');
-        $repeatUnit        = strtolower($repeatUnit);
-        $repeatPeriod      = (int) $this->_containerGet($config, 'repeat_period');
-        $repeatUntil       = $this->_containerGet($config, 'repeat_until');
-        $repeatUntilPeriod = $this->_containerGet($config, 'repeat_until_period');
-        $repeatUntilPeriod = sprintf('+%1$d %2$s', $repeatUntilPeriod, $repeatUnit);
-        $repeatUntilDate   = $this->_containerGet($config, 'repeat_until_date');
+        $repeatUnit           = $this->_containerGet($config, 'repeat_unit');
+        $repeatUnit           = strtolower($repeatUnit);
+        $repeatPeriod         = (int) $this->_containerGet($config, 'repeat_period');
+        $repeatUntil          = $this->_containerGet($config, 'repeat_until');
+        $repeatUntilPeriod    = (int) $this->_containerGet($config, 'repeat_until_period');
+        $repeatUntilPeriod    = ($repeatUntilPeriod < 1) ? 1 : $repeatUntilPeriod;
+        $repeatUntilPeriodStr = sprintf('+%1$d %2$s', $repeatUntilPeriod - 1, $repeatUnit);
+        $repeatUntilDate      = $this->_containerGet($config, 'repeat_until_date');
         // Calculate the end of repetition
         $repeatEnd = ($repeatUntil === 'period')
-            ? Carbon::createFromTimestampUTC($start)->modify($repeatUntilPeriod)->getTimestamp()
+            ? Carbon::createFromTimestampUTC($start)->modify($repeatUntilPeriodStr)->getTimestamp()
             : $repeatUntilDate;
 
         switch ($repeatUnit) {
@@ -126,16 +128,29 @@ class SessionRuleFactory implements FactoryInterface
             case 'weeks':
                 $daysOfTheWeek = $this->_containerGet($config, 'repeat_weekly_on');
                 $daysOfTheWeek = array_filter(explode(',', $daysOfTheWeek));
+                $startTime     = Carbon::createFromTimestampUTC($start)->toTimeString();
+                $endTime       = Carbon::createFromTimestampUTC($end)->toTimeString();
+                $rules         = new AppendIterator();
 
-                return new WeeklyRepeatingRule(
-                    $this->periodFactory,
-                    $start,
-                    $end,
-                    $repeatPeriod,
-                    $repeatEnd,
-                    $daysOfTheWeek,
-                    $excludeDates
-                );
+                foreach ($daysOfTheWeek as $_dotw) {
+                    $_startStr = sprintf('%1$s %2$s', $_dotw, $startTime);
+                    $_endStr   = sprintf('%1$s %2$s', $_dotw, $endTime);
+                    $_start    = strtotime($_startStr, $start);
+                    $_end      = strtotime($_endStr, $end);
+
+                    $rules->append(
+                        new WeeklyRepeatingRule(
+                            $this->periodFactory,
+                            $_start,
+                            $_end,
+                            $repeatPeriod,
+                            $repeatEnd,
+                            $excludeDates
+                        )
+                    );
+                }
+
+                return $rules;
 
             case 'months':
                 $monthRepeatMode = $this->_containerGet($config, 'repeat_monthly_on');
