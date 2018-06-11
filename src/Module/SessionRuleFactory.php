@@ -133,7 +133,6 @@ class SessionRuleFactory implements FactoryInterface
                     $end,
                     $repeatPeriod,
                     $repeatEnd,
-                    $daysOfTheWeek,
                     $excludeDates
                 );
 
