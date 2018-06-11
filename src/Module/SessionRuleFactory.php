@@ -132,8 +132,8 @@ class SessionRuleFactory implements FactoryInterface
                 $rules         = new AppendIterator();
 
                 foreach ($daysOfTheWeek as $_dotw) {
-                    $_startStr = sprintf('this week %1$s %2$s', $_dotw, $startTime);
-                    $_endStr   = sprintf('this week $1$s %2$s', $_dotw, $endTime);
+                    $_startStr = sprintf('%1$s %2$s', $_dotw, $startTime);
+                    $_endStr   = sprintf('%1$s %2$s', $_dotw, $endTime);
                     $_start    = strtotime($_startStr, $start);
                     $_end      = strtotime($_endStr, $end);
 
