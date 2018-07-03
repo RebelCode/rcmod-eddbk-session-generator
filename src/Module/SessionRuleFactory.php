@@ -129,15 +129,14 @@ class SessionRuleFactory implements FactoryInterface
             case 'weeks':
                 $dotwNames = $this->_containerGet($config, 'repeat_weekly_on');
                 $dotwNames = array_filter(explode(',', $dotwNames));
+                $duration  = $end - $start;
                 $startTime = Carbon::createFromTimestampUTC($start)->toTimeString();
-                $endTime   = Carbon::createFromTimestampUTC($end)->toTimeString();
                 $rules     = new AppendIterator();
 
                 foreach ($dotwNames as $_dotwName) {
                     $_dotwStartStr = sprintf('%1$s %2$s', $_dotwName, $startTime);
-                    $_dotwEndStr   = sprintf('%1$s %2$s', $_dotwName, $endTime);
                     $_dotwStart    = strtotime($_dotwStartStr, $start);
-                    $_dotwEnd      = strtotime($_dotwEndStr, $end);
+                    $_dotwEnd      = $_dotwStart + $duration;
 
                     $rules->append(
                         new WeeklyRepeatingRule(
