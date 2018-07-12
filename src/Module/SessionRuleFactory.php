@@ -127,23 +127,22 @@ class SessionRuleFactory implements FactoryInterface
                 );
 
             case 'weeks':
-                $daysOfTheWeek = $this->_containerGet($config, 'repeat_weekly_on');
-                $daysOfTheWeek = array_filter(explode(',', $daysOfTheWeek));
-                $startTime     = Carbon::createFromTimestampUTC($start)->toTimeString();
-                $endTime       = Carbon::createFromTimestampUTC($end)->toTimeString();
-                $rules         = new AppendIterator();
+                $dotwNames = $this->_containerGet($config, 'repeat_weekly_on');
+                $dotwNames = array_filter(explode(',', $dotwNames));
+                $duration  = $end - $start;
+                $startTime = Carbon::createFromTimestampUTC($start)->toTimeString();
+                $rules     = new AppendIterator();
 
-                foreach ($daysOfTheWeek as $_dotw) {
-                    $_startStr = sprintf('%1$s %2$s', $_dotw, $startTime);
-                    $_endStr   = sprintf('%1$s %2$s', $_dotw, $endTime);
-                    $_start    = strtotime($_startStr, $start);
-                    $_end      = strtotime($_endStr, $end);
+                foreach ($dotwNames as $_dotwName) {
+                    $_dotwStartStr = sprintf('%1$s %2$s', $_dotwName, $startTime);
+                    $_dotwStart    = strtotime($_dotwStartStr, $start);
+                    $_dotwEnd      = $_dotwStart + $duration;
 
                     $rules->append(
                         new WeeklyRepeatingRule(
                             $this->periodFactory,
-                            $_start,
-                            $_end,
+                            $_dotwStart,
+                            $_dotwEnd,
                             $repeatPeriod,
                             $repeatEnd,
                             $excludeDates
