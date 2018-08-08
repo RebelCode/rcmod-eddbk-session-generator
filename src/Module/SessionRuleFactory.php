@@ -79,12 +79,6 @@ class SessionRuleFactory implements FactoryInterface
     {
         $start  = (int) $this->_containerGet($config, 'start');
         $end    = (int) $this->_containerGet($config, 'end');
-        $allDay = (bool) $this->_containerGet($config, 'all_day');
-
-        if ($allDay) {
-            $start = Carbon::createFromTimestampUTC($start)->setTime(0, 0, 0)->getTimestamp();
-            $end   = Carbon::createFromTimestampUTC($end)->setTime(0, 0, 0)->addDay(1)->getTimestamp();
-        }
 
         $repeat       = (bool) $this->_containerGet($config, 'repeat');
         $excludeDates = $this->_containerGet($config, 'exclude_dates');
