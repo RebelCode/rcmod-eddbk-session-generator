@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [[*next-version*]] - YYYY-MM-DD
 ## Fixed
 - Rules where not generating sessions for the last repeating unit.
+- Fixed weekly repetition not generating any sessions when the rule is longer than a day.
 
 ## [0.1-alpha5] - 2018-08-13
 ### Fixed
