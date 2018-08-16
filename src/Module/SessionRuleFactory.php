@@ -101,7 +101,7 @@ class SessionRuleFactory implements FactoryInterface
         $repeatUntil          = $this->_containerGet($config, 'repeat_until');
         $repeatUntilPeriod    = (int) $this->_containerGet($config, 'repeat_until_period');
         $repeatUntilPeriod    = ($repeatUntilPeriod < 1) ? 1 : $repeatUntilPeriod;
-        $repeatUntilPeriodStr = sprintf('+%1$d %2$s', $repeatUntilPeriod - 1, $repeatUnit);
+        $repeatUntilPeriodStr = sprintf('+%1$d %2$s', $repeatUntilPeriod, $repeatUnit);
         $repeatUntilDate      = $this->_containerGet($config, 'repeat_until_date');
         // Calculate the end of repetition datetime
         $repeatEndDt = ($repeatUntil === 'period')

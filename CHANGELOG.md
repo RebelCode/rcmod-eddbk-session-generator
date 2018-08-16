@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
+## Fixed
+- Rules where not generating sessions for the last repeating unit.
 
 ## [0.1-alpha5] - 2018-08-13
 ### Fixed
