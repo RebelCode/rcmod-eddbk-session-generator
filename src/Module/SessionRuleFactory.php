@@ -59,6 +59,13 @@ class SessionRuleFactory implements FactoryInterface
     use StringTranslatingTrait;
 
     /**
+     * The duration up till which the weekly day-of-the-week repetition processing applies.
+     *
+     * @since [*next-version*]
+     */
+    const WEEKLY_REPEAT_DOTW_DURATION_THRESHOLD = 86400;
+
+    /**
      * Constructor.
      *
      * @since [*next-version*]
@@ -121,9 +128,21 @@ class SessionRuleFactory implements FactoryInterface
                 );
 
             case 'weeks':
+                $duration = $end - $start;
+
+                if ($duration > static::WEEKLY_REPEAT_DOTW_DURATION_THRESHOLD) {
+                    return new WeeklyRepeatingRule(
+                        $this->periodFactory,
+                        $start,
+                        $end,
+                        $repeatPeriod,
+                        $repeatEnd,
+                        $excludeDates
+                    );
+                }
+
                 $dotwNames = $this->_containerGet($config, 'repeat_weekly_on');
                 $dotwNames = array_filter(explode(',', $dotwNames));
-                $duration  = $end - $start;
                 $startTime = Carbon::createFromTimestampUTC($start)->toTimeString();
                 $rules     = new AppendIterator();
 
