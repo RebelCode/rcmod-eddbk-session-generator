@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
-## Fixed
+### Fixed
 - Rules where not generating sessions for the last repeating unit.
 - Fixed weekly repetition not generating any sessions when the rule is longer than a day.
 
