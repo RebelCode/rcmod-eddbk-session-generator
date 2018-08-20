@@ -21,22 +21,22 @@ class MonthlyRepeatingRule extends AbstractIteratorRule
      *
      * @since [*next-version*]
      */
-    const MODE_DATE = 'date';
+    const MODE_DATE_OF_MONTH = 'date_of_month';
 
     /**
      * The mode for repeating monthly on the Nth day of the week.
      *
      * @since [*next-version*]
      */
-    const MODE_NTH_DAY_OF_WEEK = 'dotw';
+    const MODE_DAY_OF_WEEK = 'day_of_week';
 
     /**
      * The month repetition mode.
      *
      * @since [*next-version*]
      *
-     * @see   MonthlyRepeatingRule::MODE_DATE
-     * @see   MonthlyRepeatingRule::MODE_NTH_DAY_OF_WEEK
+     * @see   MonthlyRepeatingRule::MODE_DATE_OF_MONTH
+     * @see   MonthlyRepeatingRule::MODE_DAY_OF_WEEK
      *
      * @var string
      */
@@ -61,7 +61,7 @@ class MonthlyRepeatingRule extends AbstractIteratorRule
         $end,
         $repeatFreq = null,
         $repeatEnd = null,
-        $monthRepeatMode = self::MODE_DATE,
+        $monthRepeatMode = self::MODE_DATE_OF_MONTH,
         $excludeDates = []
     ) {
         $this->_initRule($periodFactory, $start, $end, $repeatFreq, $repeatEnd, $excludeDates);
@@ -73,8 +73,8 @@ class MonthlyRepeatingRule extends AbstractIteratorRule
      *
      * @since [*next-version*]
      *
-     * @see   MonthlyRepeatingRule::MODE_DATE
-     * @see   MonthlyRepeatingRule::MODE_NTH_DAY_OF_WEEK
+     * @see   MonthlyRepeatingRule::MODE_DATE_OF_MONTH
+     * @see   MonthlyRepeatingRule::MODE_DAY_OF_WEEK
      *
      * @return string The monthly repeating mode. See constants.
      */
@@ -88,8 +88,8 @@ class MonthlyRepeatingRule extends AbstractIteratorRule
      *
      * @since [*next-version*]
      *
-     * @see   MonthlyRepeatingRule::MODE_DATE
-     * @see   MonthlyRepeatingRule::MODE_NTH_DAY_OF_WEEK
+     * @see   MonthlyRepeatingRule::MODE_DATE_OF_MONTH
+     * @see   MonthlyRepeatingRule::MODE_DAY_OF_WEEK
      *
      * @param string|Stringable $monthRepeatMode The monthly repeating mode. See constants.
      */
@@ -112,11 +112,11 @@ class MonthlyRepeatingRule extends AbstractIteratorRule
         $datetime = Carbon::createFromTimestampUTC($timestamp);
 
         switch ($this->monthRepeatMode) {
-            case static::MODE_DATE:
+            case static::MODE_DATE_OF_MONTH:
                 $datetime->addMonths($this->_getRepeatFreq());
                 break;
 
-            case static::MODE_NTH_DAY_OF_WEEK:
+            case static::MODE_DAY_OF_WEEK:
                 // Get the day-of-the-week of the current time
                 $dotw = $datetime->dayOfWeek;
                 // Get the time only
