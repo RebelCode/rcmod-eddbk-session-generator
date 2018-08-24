@@ -21,7 +21,7 @@ class MonthlyRepeatingRule extends AbstractIteratorRule
      *
      * @since [*next-version*]
      */
-    const MODE_DATE_OF_MONTH = 'date_of_month';
+    const MODE_DATE_OF_MONTH = 'day_of_month';
 
     /**
      * The mode for repeating monthly on the Nth day of the week.
