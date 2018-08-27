@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
+### Fixed
+- A changed monthly repeating mode name was incorrect - `date_of_month` instead of `day_of_month`.
 
 ## [0.1-alpha6] - 2018-08-24
 ### Changed
