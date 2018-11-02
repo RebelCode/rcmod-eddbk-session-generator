@@ -22,7 +22,6 @@ use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\EventManager\EventInterface;
-use RebelCode\Sessions\SessionGenerator;
 use RebelCode\Sessions\SessionGeneratorInterface;
 use RebelCode\Time\NormalizeTimestampCapableTrait;
 use Traversable;
