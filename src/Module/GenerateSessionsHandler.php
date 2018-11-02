@@ -3,6 +3,7 @@
 namespace RebelCode\EddBookings\Sessions\Module;
 
 use Dhii\Data\Container\ContainerGetCapableTrait;
+use Dhii\Data\Container\ContainerGetPathCapableTrait;
 use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
 use Dhii\Data\Container\CreateNotFoundExceptionCapableTrait;
 use Dhii\Data\Container\DeleteCapableInterface;
@@ -16,8 +17,10 @@ use Dhii\Storage\Resource\InsertCapableInterface;
 use Dhii\Storage\Resource\SelectCapableInterface;
 use Dhii\Time\PeriodInterface;
 use Dhii\Util\Normalization\NormalizeIntCapableTrait;
+use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
+use Psr\Container\NotFoundExceptionInterface;
 use Psr\EventManager\EventInterface;
 use RebelCode\Sessions\SessionGenerator;
 use RebelCode\Sessions\SessionGeneratorInterface;
@@ -32,10 +35,16 @@ use Traversable;
 class GenerateSessionsHandler implements InvocableInterface
 {
     /* @since [*next-version*] */
+    use ContainerGetPathCapableTrait;
+
+    /* @since [*next-version*] */
     use ContainerGetCapableTrait;
 
     /* @since [*next-version*] */
     use NormalizeTimestampCapableTrait;
+
+    /* @since [*next-version*] */
+    use NormalizeIterableCapableTrait;
 
     /* @since [*next-version*] */
     use NormalizeIntCapableTrait;
@@ -178,11 +187,15 @@ class GenerateSessionsHandler implements InvocableInterface
     {
         $postId = func_get_arg(0);
 
-        // Get the session lengths for the service
-        $sessionLengthsObjs = $this->_getPostMeta($postId, 'eddbk_session_lengths', []);
-        $sessionLengths     = [];
-        foreach ($sessionLengthsObjs as $_sessionLengthObj) {
-            $sessionLengths[] = $this->_containerGet($_sessionLengthObj, 'sessionLength');
+        // Get the session types for the service
+        $sessionTypes = $this->_getPostMeta($postId, 'eddbk_session_types', []);
+        $durations    = [];
+        foreach ($sessionTypes as $_sessionType) {
+            try {
+                $durations[] = $this->_containerGetPath($_sessionType, ['data', 'duration']);
+            } catch (NotFoundExceptionInterface $exception) {
+                continue;
+            }
         }
 
         $b = $this->exprBuilder;
@@ -203,10 +216,10 @@ class GenerateSessionsHandler implements InvocableInterface
             $_rule   = $this->ruleFactory->make($_ruleCfg);
             $_ruleId = $this->_containerGet($_ruleCfg, 'id');
 
-            // Initialize a generator with the lengths
+            // Initialize a generator with the durations
             $generator = $this->generatorFactory->make([
                 'session_factory' => $this->_getSessionFactory($postId, $postId, $_ruleId),
-                'session_lengths' => $sessionLengths,
+                'session_lengths' => $durations,
             ]);
 
             $this->_generateForRule($_rule, $generator);
