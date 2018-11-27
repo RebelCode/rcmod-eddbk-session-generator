@@ -31,7 +31,7 @@ return [
     },
 
     'eddbk_session_type_factory' => function (ContainerInterface $c) {
-        $factoriesCfg = $c->get('eddbk_session_generator/session_type_factories');
+        $factoriesCfg = $c->get('eddbk/session_generator/session_type_factories');
 
         $factories = [];
         foreach ($factoriesCfg as $_type => $_service) {
