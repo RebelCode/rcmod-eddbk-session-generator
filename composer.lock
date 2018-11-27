@@ -2247,12 +2247,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/booking-system.git",
-                "reference": "b4568101d6084199991544da860e6bec38de5b03"
+                "reference": "e4833f4101343b62e9f438f403c82116c09c3c49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/booking-system/zipball/b4568101d6084199991544da860e6bec38de5b03",
-                "reference": "b4568101d6084199991544da860e6bec38de5b03",
+                "url": "https://api.github.com/repos/RebelCode/booking-system/zipball/e4833f4101343b62e9f438f403c82116c09c3c49",
+                "reference": "e4833f4101343b62e9f438f403c82116c09c3c49",
                 "shasum": ""
             },
             "require": {
@@ -2296,7 +2296,7 @@
                 }
             ],
             "description": "A simple and flexible PHP booking system.",
-            "time": "2018-11-26T12:08:46+00:00"
+            "time": "2018-11-27T10:26:40+00:00"
         },
         {
             "name": "rebelcode/booking-system-interface",
