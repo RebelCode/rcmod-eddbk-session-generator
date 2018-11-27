@@ -250,22 +250,26 @@ class GenerateSessionsHandler implements InvocableInterface
 
             try {
                 $_stResourceIds = $this->_containerGetPath($_data, ['data', 'resources']);
+            } catch (NotFoundExceptionInterface $exception) {
+                continue;
+            }
 
-                $sessionTypes[] = [
-                    'object'    => $_sessionType,
-                    'resources' => $_stResourceIds,
-                ];
+            $sessionTypes[] = [
+                'object'    => $_sessionType,
+                'resources' => $_stResourceIds,
+            ];
 
-                foreach ($_stResourceIds as $_resourceId) {
+            foreach ($_stResourceIds as $_resourceId) {
+                try {
                     // Get from cache first if available, otherwise get using the entity manager
                     $_resource = !isset($resources)
                         ? $this->resourcesManager->get($_resourceId)
                         : $resources[$_resourceId];
                     // Get and store the resource availability
                     $resourceAvs[] = $this->_getResourceAvailability($_resource);
+                } catch (NotFoundExceptionInterface $exception) {
+                    continue;
                 }
-            } catch (NotFoundExceptionInterface $exception) {
-                continue;
             }
         }
 
