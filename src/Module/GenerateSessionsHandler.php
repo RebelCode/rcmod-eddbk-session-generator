@@ -262,7 +262,7 @@ class GenerateSessionsHandler implements InvocableInterface
             foreach ($_stResourceIds as $_resourceId) {
                 try {
                     // Get from cache first if available, otherwise get using the entity manager
-                    $_resource = !isset($resources)
+                    $_resource = !isset($resources[$_resourceId])
                         ? $this->resourcesManager->get($_resourceId)
                         : $resources[$_resourceId];
                     // Get and store the resource availability
