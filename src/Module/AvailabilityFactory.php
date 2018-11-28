@@ -85,11 +85,7 @@ class AvailabilityFactory implements FactoryInterface
         $end         = (int) $this->_containerGet($config, 'end');
         $resourceIds = $this->_containerGet($config, 'resource_ids');
         $timezone    = new DateTimeZone($this->_containerGet($config, 'timezone'));
-
-        $firstPeriod = $this->periodFactory->make([
-            'start' => $start,
-            'end'   => $end,
-        ]);
+        $firstPeriod = $firstPeriod = new Period($start, $end);;
 
         $repeat       = (bool) $this->_containerGet($config, 'repeat');
         $excludeDates = $this->_containerGet($config, 'exclude_dates');
