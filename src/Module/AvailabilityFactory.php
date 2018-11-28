@@ -196,6 +196,10 @@ class AvailabilityFactory implements FactoryInterface
                 );
         }
 
+        if (count($excludeDates) === 0) {
+            return $availability;
+        }
+
         // Iterate through the exclude dates to create an availability for each
         $exclusions = [];
         foreach ($excludeDates as $_excludeDate) {
