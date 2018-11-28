@@ -277,10 +277,9 @@ class GenerateSessionsHandler implements InvocableInterface
         // availability of all the resources retrieved from the session types.
         // The composition of resources yields all the available periods for all the resources.
         // The intersection restricts those periods to those that are also present in the schedule
-        $availability = new IntersectionAvailability([
-            $scheduleAv,
-            new CompositeAvailability($resourceAvs),
-        ]);
+        $availability = (count($resourceAvs) > 0)
+            ? new IntersectionAvailability([$scheduleAv, new CompositeAvailability($resourceAvs)])
+            : $scheduleAv;
 
         // Use an append iterator to incrementally add more iterators, as retrieved from each generation pass
         $sessions = new AppendIterator();
