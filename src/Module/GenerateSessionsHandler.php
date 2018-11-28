@@ -345,9 +345,10 @@ class GenerateSessionsHandler implements InvocableInterface
         $availabilities = [];
 
         foreach ($availRules as $_ruleData) {
-            $_config             = $this->_normalizeArray($_ruleData);
-            $_config['timezone'] = $timezone;
-            $availabilities[]    = $this->availabilityFactory->make($_config);
+            $_config                 = $this->_normalizeArray($_ruleData);
+            $_config['timezone']     = $timezone;
+            $_config['resource_ids'] = [$_config['resource_id']];
+            $availabilities[]        = $this->availabilityFactory->make($_config);
         }
 
         return new CompositeAvailability($availabilities);
