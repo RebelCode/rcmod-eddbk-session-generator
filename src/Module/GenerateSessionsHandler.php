@@ -310,8 +310,10 @@ class GenerateSessionsHandler implements InvocableInterface
         }
 
         // Use a callback iterator to modify each session at the last minute to add the service ID
+        // The resource IDs also need to be imploded into a comma separated list string
         $finalSessions = new ModifyCallbackIterator($sessions, function ($session) use ($serviceId) {
             $session['service_id'] = $serviceId;
+            $session['resource_ids'] = implode(',', $session['resource_ids']);
 
             return $session;
         });
