@@ -262,6 +262,15 @@ class GenerateSessionsHandler implements InvocableInterface
             //     'resources' => [$_stResourceIds],
             // ];
 
+            // Skip un-grouping of session types if it has no resources, otherwise the session type won't be stored
+            if (empty($_stResourceIds)) {
+                $sessionTypes[] = [
+                    'object'    => $_sessionType,
+                    'resources' => [],
+                ];
+                continue;
+            }
+
             foreach ($_stResourceIds as $_resourceId) {
                 try {
 
