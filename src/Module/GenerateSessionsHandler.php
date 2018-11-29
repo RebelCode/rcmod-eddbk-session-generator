@@ -254,19 +254,34 @@ class GenerateSessionsHandler implements InvocableInterface
                 continue;
             }
 
-            $sessionTypes[] = [
-                'object'    => $_sessionType,
-                'resources' => $_stResourceIds,
-            ];
+            // This is the "ungrouped" behavior
+            // For the current version of EDD Bookings, the ungrouping of session types will happen here, during
+            // session generation. In the future, this will be handled by another component.
+            // $sessionTypes[] = [
+            //     'object'    => $_sessionType,
+            //     'resources' => [$_stResourceIds],
+            // ];
 
             foreach ($_stResourceIds as $_resourceId) {
                 try {
+                    // Only process each resource once - avoids duplicate availabilities
+                    if (isset($resourceAvs[$_resourceId])) {
+                        continue;
+                    }
+
                     // Get from cache first if available, otherwise get using the entity manager
                     $_resource = !isset($resources[$_resourceId])
                         ? $this->resourcesManager->get($_resourceId)
                         : $resources[$_resourceId];
+
                     // Get and store the resource availability
-                    $resourceAvs[] = $this->_getResourceAvailability($_resource);
+                    $resourceAvs[$_resourceId] = $this->_getResourceAvailability($_resource);
+
+                    // Temporary solution for ungrouping session types
+                    $sessionTypes[] = [
+                        'object'    => $_sessionType,
+                        'resources' => [$_resourceId],
+                    ];
                 } catch (NotFoundExceptionInterface $exception) {
                     continue;
                 }
