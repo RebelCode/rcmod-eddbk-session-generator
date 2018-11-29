@@ -314,19 +314,19 @@ class GenerateSessionsHandler implements InvocableInterface
         // type may be used to generate sessions for that period.
         /* @var $_period AvailabilityPeriodInterface */
         foreach ($availability->getAvailablePeriods($range) as $_period) {
-            $_sessionTypes = [];
+            $_sessionTypeObjects = [];
 
             foreach ($sessionTypes as $_sessionType) {
                 $diff = array_diff($_sessionType['resources'], $_period->getResourceIds());
 
                 if (count($diff) === 0) {
-                    $_sessionTypes[] = $_sessionType['object'];
+                    $_sessionTypeObjects[] = $_sessionType['object'];
                 }
             }
 
             $sessions->append(
                 $this->_normalizeIterator(
-                    $this->generator->generate($_period, $_sessionTypes)
+                    $this->generator->generate($_period, $_sessionTypeObjects)
                 )
             );
         }
