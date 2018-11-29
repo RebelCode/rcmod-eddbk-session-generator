@@ -200,7 +200,7 @@ class AvailabilityFactory implements FactoryInterface
         $exclusions = [];
         foreach ($excludeDates as $_excludeDate) {
             // Get the date time for the exclude date using the timezone, and calculate the start and end of the date
-            $_dateTime = new DateTime($_excludeDate, $timezone);
+            $_dateTime = new DateTime('@' . $_excludeDate, $timezone);
             $_dtStart  = (clone $_dateTime)->modify('midnight')->getTimestamp();
             $_dtEnd    = (clone $_dateTime)->modify('tomorrow midnight')->getTimestamp();
             // Create a single-day availability
