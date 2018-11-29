@@ -264,18 +264,16 @@ class GenerateSessionsHandler implements InvocableInterface
 
             foreach ($_stResourceIds as $_resourceId) {
                 try {
-                    // Only process each resource once - avoids duplicate availabilities
-                    if (isset($resourceAvs[$_resourceId])) {
-                        continue;
+
+                    // Get and store the resource availability, unless it's already recorded
+                    if (!isset($resourceAvs[$_resourceId])) {
+                        // Get from cache first if available, otherwise get using the entity manager
+                        $_resource = !isset($resources[$_resourceId])
+                            ? $this->resourcesManager->get($_resourceId)
+                            : $resources[$_resourceId];
+
+                        $resourceAvs[$_resourceId] = $this->_getResourceAvailability($_resource);
                     }
-
-                    // Get from cache first if available, otherwise get using the entity manager
-                    $_resource = !isset($resources[$_resourceId])
-                        ? $this->resourcesManager->get($_resourceId)
-                        : $resources[$_resourceId];
-
-                    // Get and store the resource availability
-                    $resourceAvs[$_resourceId] = $this->_getResourceAvailability($_resource);
 
                     // Temporary solution for ungrouping session types
                     $sessionTypes[] = [
