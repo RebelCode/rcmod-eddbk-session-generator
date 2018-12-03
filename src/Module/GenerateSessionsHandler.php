@@ -219,16 +219,15 @@ class GenerateSessionsHandler implements InvocableInterface
     }
 
     /**
-     * Generates sessions for a particular service, by ID.
+     * Generates sessions for a particular service.
      *
      * @since [*next-version*]
      *
-     * @param int|string|Stringable $serviceId The ID of the service for which to generate sessions.
+     * @param array|stdClass|ArrayAccess|ContainerInterface $service The service for which to generate sessions.
      */
-    protected function _generateForService($serviceId)
+    protected function _generateForService($service)
     {
         // Get the service's schedule availability, since service availability it saved in its schedule
-        $service    = $this->servicesManager->get($serviceId);
         $scheduleId = $this->_containerGet($service, 'schedule_id');
         $schedule   = $this->resourcesManager->get($scheduleId);
         $scheduleAv = $this->_getResourceAvailability($schedule);
@@ -333,8 +332,9 @@ class GenerateSessionsHandler implements InvocableInterface
 
         // Use a callback iterator to modify each session at the last minute to add the service ID
         // The resource IDs also need to be imploded into a comma separated list string
+        $serviceId     = $this->_containerGet($service, 'id');
         $finalSessions = new ModifyCallbackIterator($sessions, function ($session) use ($serviceId) {
-            $session['service_id'] = $serviceId;
+            $session['service_id']   = $serviceId;
             $session['resource_ids'] = implode(',', $session['resource_ids']);
 
             return $session;
