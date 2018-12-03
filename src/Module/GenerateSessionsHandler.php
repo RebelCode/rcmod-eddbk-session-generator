@@ -22,7 +22,6 @@ use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
 use Dhii\Util\Normalization\NormalizeIntCapableTrait;
 use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
-use Dhii\Util\String\StringableInterface as Stringable;
 use IteratorIterator;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -34,6 +33,7 @@ use RebelCode\Bookings\Availability\IntersectionAvailability;
 use RebelCode\Bookings\Sessions\SessionGeneratorInterface;
 use RebelCode\EddBookings\Sessions\Time\Period;
 use RebelCode\EddBookings\Sessions\Util\ModifyCallbackIterator;
+use RebelCode\Entity\EntityManagerInterface;
 use RebelCode\Entity\GetCapableManagerInterface;
 use RebelCode\Time\NormalizeTimestampCapableTrait;
 use stdClass;
@@ -102,7 +102,7 @@ class GenerateSessionsHandler implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @var GetCapableManagerInterface
+     * @var EntityManagerInterface
      */
     protected $servicesManager;
 
@@ -166,7 +166,7 @@ class GenerateSessionsHandler implements InvocableInterface
      * @since [*next-version*]
      *
      * @param SessionGeneratorInterface  $generator           The session generator.
-     * @param GetCapableManagerInterface $servicesManager     The services entity manager.
+     * @param EntityManagerInterface     $servicesManager     The services entity manager.
      * @param GetCapableManagerInterface $resourcesManager    The resources entity manager.
      * @param FactoryInterface           $sessionTypeFactory  The factory for creating session types.
      * @param FactoryInterface           $availabilityFactory The factory for creating availabilities.
@@ -176,7 +176,7 @@ class GenerateSessionsHandler implements InvocableInterface
      */
     public function __construct(
         SessionGeneratorInterface $generator,
-        GetCapableManagerInterface $servicesManager,
+        EntityManagerInterface $servicesManager,
         GetCapableManagerInterface $resourcesManager,
         FactoryInterface $sessionTypeFactory,
         FactoryInterface $availabilityFactory,
@@ -209,13 +209,25 @@ class GenerateSessionsHandler implements InvocableInterface
             );
         }
 
-        $serviceId = $event->getParam('service_id');
+        $serviceId  = $event->getParam('service_id');
+        $resourceId = $event->getParam('resource_id');
 
-        if ($serviceId === null) {
+        // If neither a service nor a resource ID are given, stop
+        if ($serviceId === null && $resourceId === null) {
             return;
         }
 
-        $this->_generateForService($serviceId);
+        // Get the list of services.
+        // If a service ID is given, use only that service.
+        // If a resource ID is given, use the services that use that resource
+        $services = ($serviceId === null)
+            ? $this->_getServicesForResource($resourceId)
+            : [$this->servicesManager->get($serviceId)];
+
+        // Generate sessions for each applicable service
+        foreach ($services as $_service) {
+            $this->_generateForService($_service);
+        }
     }
 
     /**
@@ -374,6 +386,35 @@ class GenerateSessionsHandler implements InvocableInterface
         }
 
         return new CompositeAvailability($availabilities);
+    }
+
+    /**
+     * Retrieves the services that use a specific resource, by ID.
+     *
+     * @since [*next-version*]
+     *
+     * @param int|string $resourceId The resource ID.
+     *
+     * @return array|stdClass|Traversable A list of service containers.
+     */
+    protected function _getServicesForResource($resourceId)
+    {
+        $results  = [];
+        $services = $this->servicesManager->query();
+
+        foreach ($services as $_service) {
+            $_sessionTypes = $this->_containerGet($_service, 'session_types');
+
+            foreach ($_sessionTypes as $_sessionType) {
+                $_resources = $this->_containerGetPath($_sessionType, ['data', 'resources']);
+
+                if (in_array($resourceId, $_resources)) {
+                    $results[] = $_service;
+                }
+            }
+        }
+
+        return $results;
     }
 
     /**
