@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "20cb5b199f849617d2a26b6efcdd978f",
+    "content-hash": "f471c065fabe68beacaa580f39602057",
     "packages": [
         {
             "name": "dhii/args-list-validation",
@@ -2243,16 +2243,16 @@
         },
         {
             "name": "rebelcode/booking-system",
-            "version": "dev-develop",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/booking-system.git",
-                "reference": "926c096cc0f5517a2faa7d5498c5407778e93ea6"
+                "reference": "cb6cc5f956c6d4415f300349bcd740b6e7fdc594"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/booking-system/zipball/926c096cc0f5517a2faa7d5498c5407778e93ea6",
-                "reference": "926c096cc0f5517a2faa7d5498c5407778e93ea6",
+                "url": "https://api.github.com/repos/RebelCode/booking-system/zipball/cb6cc5f956c6d4415f300349bcd740b6e7fdc594",
+                "reference": "cb6cc5f956c6d4415f300349bcd740b6e7fdc594",
                 "shasum": ""
             },
             "require": {
@@ -2264,7 +2264,7 @@
                 "dhii/state-machine-abstract": "^0.1-alpha1",
                 "php": "^5.5 | ^7.0",
                 "psr/container": "^1.0",
-                "rebelcode/booking-system-interface": "dev-develop as 0.1-alpha1",
+                "rebelcode/booking-system-interface": "^0.1-alpha1",
                 "rebelcode/time-abstract": "^0.1"
             },
             "require-dev": {
@@ -2296,20 +2296,20 @@
                 }
             ],
             "description": "A simple and flexible PHP booking system.",
-            "time": "2018-11-27T11:03:59+00:00"
+            "time": "2018-12-05T10:38:12+00:00"
         },
         {
             "name": "rebelcode/booking-system-interface",
-            "version": "dev-develop",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/booking-system-interface.git",
-                "reference": "475bb56dfdd99117754bbf1c7ea01b9b5190221d"
+                "reference": "a500bb301f19c93ba22670b650f98c797645ef50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/booking-system-interface/zipball/475bb56dfdd99117754bbf1c7ea01b9b5190221d",
-                "reference": "475bb56dfdd99117754bbf1c7ea01b9b5190221d",
+                "url": "https://api.github.com/repos/RebelCode/booking-system-interface/zipball/a500bb301f19c93ba22670b650f98c797645ef50",
+                "reference": "a500bb301f19c93ba22670b650f98c797645ef50",
                 "shasum": ""
             },
             "require": {
@@ -2348,7 +2348,7 @@
                 }
             ],
             "description": "Interfaces for the RebelCode PHP booking system library.",
-            "time": "2018-11-26T09:00:24+00:00"
+            "time": "2018-12-05T10:07:49+00:00"
         },
         {
             "name": "rebelcode/entity-manager-interface",
@@ -4762,18 +4762,9 @@
             "time": "2018-01-29T19:49:41+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "0.1-alpha1",
-            "alias_normalized": "0.1.0.0-alpha1",
-            "version": "dev-develop",
-            "package": "rebelcode/booking-system"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "rebelcode/booking-system": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

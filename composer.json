@@ -14,7 +14,7 @@
     "require": {
         "php": "^5.5 | ^7.0",
         "rebelcode/modular": "^0.1-alpha1",
-        "rebelcode/booking-system": "dev-develop as 0.1-alpha1",
+        "rebelcode/booking-system": "^0.1-alpha1",
         "rebelcode/entity-manager-interface": "^0.1-alpha1",
         "dhii/iterator-base": "^0.1-alpha3",
         "dhii/container-helper-base": "^0.1-alpha5",
