@@ -12,11 +12,10 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^5.4 | ^7.0",
+        "php": "^5.5 | ^7.0",
         "rebelcode/modular": "^0.1-alpha1",
-        "rebelcode/time-abstract": "^0.1-alpha1",
-        "rebelcode/session-generator": "^0.1-alpha1",
-        "dhii/time-interface": "^0.1-alpha1",
+        "rebelcode/booking-system": "^0.1-alpha1",
+        "rebelcode/entity-manager-interface": "^0.1-alpha1",
         "dhii/iterator-base": "^0.1-alpha3",
         "dhii/container-helper-base": "^0.1-alpha5",
         "nesbot/carbon": "^1.26.0"

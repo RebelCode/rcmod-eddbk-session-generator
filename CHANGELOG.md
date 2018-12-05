@@ -5,8 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
+### Added
+- Sessions may be generated for combinations of services and resources.
+
 ### Changed
-- Now using the new service `session_types` for the session lengths.
+- Now using the new collective `rebelcode/booking-system` package.
+- Replace availability rule iterators with availability classes.
+- Now using the new service session types instead of the session lengths for generation.
 
 ## [0.1-alpha7] - 2018-08-27
 ### Fixed
