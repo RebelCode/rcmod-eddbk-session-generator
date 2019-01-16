@@ -4,7 +4,6 @@ namespace RebelCode\EddBookings\Sessions\Module;
 
 use Carbon\Carbon;
 use DateTime;
-use DateTimeZone;
 use Dhii\Data\Container\ContainerGetCapableTrait;
 use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
 use Dhii\Data\Container\CreateNotFoundExceptionCapableTrait;
@@ -23,6 +22,7 @@ use RebelCode\Bookings\Availability\MonthlyWeekDayRepeatingAvailability;
 use RebelCode\Bookings\Availability\SubtractiveAvailability;
 use RebelCode\Bookings\Availability\WeeklyRepeatingAvailability;
 use RebelCode\Bookings\Util\Time\Period;
+use RebelCode\Time\CreateDateTimeZoneCapableTrait;
 
 /**
  * Factory implementation that creates availability rules based on their repetition unit.
@@ -39,6 +39,9 @@ class AvailabilityFactory implements FactoryInterface
 
     /* @since [*next-version*] */
     use NormalizeStringCapableTrait;
+
+    /* @since [*next-version*] */
+    use CreateDateTimeZoneCapableTrait;
 
     /* @since [*next-version*] */
     use CreateContainerExceptionCapableTrait;
@@ -84,7 +87,7 @@ class AvailabilityFactory implements FactoryInterface
         $start       = (int) $this->_containerGet($config, 'start');
         $end         = (int) $this->_containerGet($config, 'end');
         $resourceIds = $this->_containerGet($config, 'resource_ids');
-        $timezone    = new DateTimeZone($this->_containerGet($config, 'timezone'));
+        $timezone    = $this->_createDateTimeZone($this->_containerGet($config, 'timezone'));
         $firstPeriod = $firstPeriod = new Period($start, $end);;
 
         $repeat       = (bool) $this->_containerGet($config, 'repeat');
